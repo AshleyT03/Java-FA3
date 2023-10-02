@@ -97,11 +97,12 @@ public class CounterGUI extends javax.swing.JFrame {
     private static void runSynchronizedImplementation(int incrementValue, JTextField tfResult){
         // Reset the counter to 0 before incrmenting
         counter = 0;
+        Object lock = new Object();
         
         // Create 2 threads for the synchronized implementation
         Thread thread1 = new Thread(() -> {
             for (int i = 0; i < incrementValue; i++){
-                synchronized (CounterGUI.class){
+                synchronized (lock){
                     // Synchronized on a common object
                     counter++;
                 }
@@ -110,7 +111,7 @@ public class CounterGUI extends javax.swing.JFrame {
         
         Thread thread2 = new Thread(() -> {
             for (int i = 0; i < incrementValue; i++){
-                synchronized (CounterGUI.class){
+                synchronized (lock){
                     // Synchronized on a common object
                     counter++;
                 }
