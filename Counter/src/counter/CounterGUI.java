@@ -4,6 +4,7 @@
  */
 package counter;
 
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -133,6 +134,34 @@ public class CounterGUI extends javax.swing.JFrame {
         }
     }
     
+    private static void runAtomicIntegerImplementation(int incrementValue, JTextField tfResult){
+        AtomicInteger atomicCounter = new AtomicInteger(0);
+        
+        Thread thread1 = new Thread(() -> {
+            for (int i = 0; i < incrementValue; i++){
+                atomicCounter.incrementAndGet();
+            }
+        });
+        
+        Thread thread2 = new Thread(() -> {
+           for (int i = 0; i < incrementValue; i++) {
+               atomicCounter.incrementAndGet();
+           }
+        });
+        
+        thread1.start();
+        thread2.start();
+        
+        try{
+            thread1.join();
+            thread2.join();
+        } catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        
+        tfResult.setText(Integer.toString(atomicCounter.get()));
+    }
+    
     private void btnCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCountActionPerformed
 
         int selectedValue1 = (int) SValue.getValue();
@@ -146,6 +175,7 @@ public class CounterGUI extends javax.swing.JFrame {
                 
                 // Use the retrieved Values for the implementations
                 runSynchronizedImplementation(selectedValue1, tfResult);
+                runAtomicIntegerImplementation(selectedValue1, tfResult);
             } catch (NumberFormatException ex){
                 // Handle invalid input (non-integer input)
                 JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid integer for AtomicInteger.");
