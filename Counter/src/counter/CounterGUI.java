@@ -175,7 +175,7 @@ public class CounterGUI extends javax.swing.JFrame {
                 
                 // Use the retrieved Values for the implementations
                 runSynchronizedImplementation(selectedValue1, tfResult);
-                runAtomicIntegerImplementation(selectedValue1, tfResult);
+                runAtomicIntegerImplementation(selectedValue2, tfResult);
             } catch (NumberFormatException ex){
                 // Handle invalid input (non-integer input)
                 JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid integer for AtomicInteger.");
