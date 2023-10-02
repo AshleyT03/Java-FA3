@@ -29,8 +29,8 @@ public class CounterGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnCount = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        SValue = new javax.swing.JSpinner();
         tfResult = new javax.swing.JTextField();
+        tfValue = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.orange);
@@ -42,6 +42,11 @@ public class CounterGUI extends javax.swing.JFrame {
         btnCount.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 14)); // NOI18N
         btnCount.setForeground(new java.awt.Color(0, 0, 102));
         btnCount.setText("COUNT");
+        btnCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCountActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 102));
@@ -62,17 +67,17 @@ public class CounterGUI extends javax.swing.JFrame {
                         .addGap(94, 94, 94)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfResult, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SValue, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(tfValue, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(106, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
-                    .addComponent(SValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(tfValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addComponent(btnCount)
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -83,6 +88,10 @@ public class CounterGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCountActionPerformed
+        
+    }//GEN-LAST:event_btnCountActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,10 +129,10 @@ public class CounterGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JSpinner SValue;
     private javax.swing.JButton btnCount;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField tfResult;
+    private javax.swing.JTextField tfValue;
     // End of variables declaration//GEN-END:variables
 }
