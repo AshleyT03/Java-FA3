@@ -5,6 +5,7 @@
 package counter;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -12,6 +13,8 @@ import javax.swing.JOptionPane;
  */
 public class CounterGUI extends javax.swing.JFrame {
 
+    private static int counter = 0;
+    
     /**
      * Creates new form CounterGUI
      */
@@ -91,7 +94,46 @@ public class CounterGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private static void runSynchronizedImplementation(int incrementValue, JTextField tfResult){
+        // Reset the counter to 0 before incrmenting
+        counter = 0;
+        
+        // Create 2 threads for the synchronized implementation
+        Thread thread1 = new Thread(() -> {
+            for (int i = 0; i < incrementValue; i++){
+                synchronized (CounterGUI.class){
+                    // Synchronized on a common object
+                    counter++;
+                }
+            }
+        });
+        
+        Thread thread2 = new Thread(() -> {
+            for (int i = 0; i < incrementValue; i++){
+                synchronized (CounterGUI.class){
+                    // Synchronized on a common object
+                    counter++;
+                }
+            }
+        });
+        
+        thread1.start();
+        thread2.start();
+        
+        try{
+            // Wait for both threads to finish
+            thread1.join();
+            thread2.join();
+            
+            // Display the result in the TextArea
+            tfResult.setText(Integer.toString(counter));
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
+    }
+    
     private void btnCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCountActionPerformed
+
         int selectedValue1 = (int) SValue.getValue();
         
         String input = JOptionPane.showInputDialog("Enter the second value for AtomicInteger: ");
@@ -101,8 +143,8 @@ public class CounterGUI extends javax.swing.JFrame {
                 // Parse the user input as an integer
                 int selectedValue2 = Integer.parseInt(input);
                 
-                System.out.println(selectedValue1);
-                System.out.println(selectedValue2);
+                // Use the retrieved Values for the implementations
+                runSynchronizedImplementation(selectedValue1, tfResult);
             } catch (NumberFormatException ex){
                 // Handle invalid input (non-integer input)
                 JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid integer for AtomicInteger.");
