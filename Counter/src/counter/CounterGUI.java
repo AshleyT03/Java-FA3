@@ -4,6 +4,8 @@
  */
 package counter;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ic westgate
@@ -42,6 +44,11 @@ public class CounterGUI extends javax.swing.JFrame {
         btnCount.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 14)); // NOI18N
         btnCount.setForeground(new java.awt.Color(0, 0, 102));
         btnCount.setText("COUNT");
+        btnCount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCountActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 102));
@@ -83,6 +90,25 @@ public class CounterGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCountActionPerformed
+        int selectedValue1 = (int) SValue.getValue();
+        
+        String input = JOptionPane.showInputDialog("Enter the second value for AtomicInteger: ");
+        
+        if (input != null){
+            try{
+                // Parse the user input as an integer
+                int selectedValue2 = Integer.parseInt(input);
+                
+                System.out.println(selectedValue1);
+                System.out.println(selectedValue2);
+            } catch (NumberFormatException ex){
+                // Handle invalid input (non-integer input)
+                JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid integer for AtomicInteger.");
+            }
+        }
+    }//GEN-LAST:event_btnCountActionPerformed
 
     /**
      * @param args the command line arguments
