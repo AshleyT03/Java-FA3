@@ -3,31 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package timer;
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  *
  * @author ic westgate
  */
 public class TimerGUI extends javax.swing.JFrame {
-    private Timer timer;
-    private int timeInSeconds;
 
     /**
      * Creates new form TimerGUI
      */
     public TimerGUI() {
         initComponents();
-        timeInSeconds = 0;
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                timeInSeconds++;
-                tfTimeInSeconds.setText(Integer.toString(timeInSeconds));
-            }
-        });
     }
 
     /**
@@ -41,8 +28,8 @@ public class TimerGUI extends javax.swing.JFrame {
 
         tfTimeInSeconds = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        btnStart = new javax.swing.JButton();
-        btnStop = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,19 +43,9 @@ public class TimerGUI extends javax.swing.JFrame {
 
         jLabel1.setText("Time in seconds");
 
-        btnStart.setText("Start Timer");
-        btnStart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStartActionPerformed(evt);
-            }
-        });
+        jButton1.setText("Start Timer");
 
-        btnStop.setText("Stop Timer");
-        btnStop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStopActionPerformed(evt);
-            }
-        });
+        jButton2.setText("Stop Timer");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,14 +55,14 @@ public class TimerGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnStop, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(tfTimeInSeconds, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -100,8 +77,8 @@ public class TimerGUI extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnStart)
-                    .addComponent(btnStop))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
@@ -111,18 +88,6 @@ public class TimerGUI extends javax.swing.JFrame {
     private void tfTimeInSecondsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTimeInSecondsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfTimeInSecondsActionPerformed
-
-    private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
-        if (!timer.isRunning()) {
-            timer.start();
-        }
-    }//GEN-LAST:event_btnStartActionPerformed
-
-    private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
-        if (timer.isRunning()) {
-            timer.stop();
-        }
-    }//GEN-LAST:event_btnStopActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,8 +125,8 @@ public class TimerGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnStart;
-    private javax.swing.JButton btnStop;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField tfTimeInSeconds;
     // End of variables declaration//GEN-END:variables

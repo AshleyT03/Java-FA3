@@ -4,8 +4,6 @@
  */
 package timer;
 
-import java.awt.event.ActionListener;
-
 /**
  *
  * @author ic westgate
@@ -17,10 +15,6 @@ public class Timer {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    }
-
-    Timer(int i, ActionListener actionListener) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }
