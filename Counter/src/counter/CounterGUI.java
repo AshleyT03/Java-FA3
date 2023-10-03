@@ -36,14 +36,16 @@ public class CounterGUI extends javax.swing.JFrame {
         btnCount = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         SValue = new javax.swing.JSpinner();
-        tfResult = new javax.swing.JTextField();
+        tfSynchronizedResult = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        tfAtomicIntegerResult = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.orange);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel1.setText("ENTER VALUE");
+        jLabel1.setText("VALUE to synchronize");
 
         btnCount.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 14)); // NOI18N
         btnCount.setForeground(new java.awt.Color(0, 0, 102));
@@ -56,7 +58,11 @@ public class CounterGUI extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel2.setText("RESULT");
+        jLabel2.setText("Synchronized RESULT");
+
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 3, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel3.setText("AtomicInteger RESULT");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,37 +71,43 @@ public class CounterGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCount, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnCount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
-                        .addGap(94, 94, 94)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfResult, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SValue, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfAtomicIntegerResult, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                            .addComponent(tfSynchronizedResult, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                            .addComponent(SValue))))
                 .addContainerGap(106, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(SValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(34, 34, 34)
                 .addComponent(btnCount)
-                .addGap(39, 39, 39)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(tfResult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                    .addComponent(tfSynchronizedResult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(tfAtomicIntegerResult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private static void runSynchronizedImplementation(int incrementValue, JTextField tfResult){
+    private static void runSynchronizedImplementation(int incrementValue, JTextField tfSynchronizedResult){
         // Reset the counter to 0 before incrmenting
         counter = 0;
         Object lock = new Object();
@@ -128,13 +140,13 @@ public class CounterGUI extends javax.swing.JFrame {
             thread2.join();
             
             // Display the result in the TextArea
-            tfResult.setText(Integer.toString(counter));
+            tfSynchronizedResult.setText(Integer.toString(counter));
         } catch (InterruptedException e){
             e.printStackTrace();
         }
     }
     
-    private static void runAtomicIntegerImplementation(int incrementValue, JTextField tfResult){
+    private static void runAtomicIntegerImplementation(int incrementValue, JTextField tfAtomicIntegerResult){
         AtomicInteger atomicCounter = new AtomicInteger(0);
         
         Thread thread1 = new Thread(() -> {
@@ -159,7 +171,7 @@ public class CounterGUI extends javax.swing.JFrame {
             e.printStackTrace();
         }
         
-        tfResult.setText(Integer.toString(atomicCounter.get()));
+        tfAtomicIntegerResult.setText(Integer.toString(atomicCounter.get()));
     }
     
     private void btnCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCountActionPerformed
@@ -174,8 +186,8 @@ public class CounterGUI extends javax.swing.JFrame {
                 int selectedValue2 = Integer.parseInt(input);
                 
                 // Use the retrieved Values for the implementations
-                runSynchronizedImplementation(selectedValue1, tfResult);
-                runAtomicIntegerImplementation(selectedValue2, tfResult);
+                runSynchronizedImplementation(selectedValue1, tfSynchronizedResult);
+                runAtomicIntegerImplementation(selectedValue2, tfAtomicIntegerResult);
             } catch (NumberFormatException ex){
                 // Handle invalid input (non-integer input)
                 JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid integer for AtomicInteger.");
@@ -223,6 +235,8 @@ public class CounterGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnCount;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField tfResult;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField tfAtomicIntegerResult;
+    private javax.swing.JTextField tfSynchronizedResult;
     // End of variables declaration//GEN-END:variables
 }
