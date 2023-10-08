@@ -6,13 +6,14 @@ package timer;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author ic westgate
  */
 public class TimerGUI extends javax.swing.JFrame {
-    private Timer timer;
+    private Thread timerThread;
     private int timeInSeconds;
 
     /**
@@ -21,13 +22,6 @@ public class TimerGUI extends javax.swing.JFrame {
     public TimerGUI() {
         initComponents();
         timeInSeconds = 0;
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                timeInSeconds++;
-                tfTimeInSeconds.setText(Integer.toString(timeInSeconds));
-            }
-        });
     }
 
     /**
@@ -113,17 +107,39 @@ public class TimerGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tfTimeInSecondsActionPerformed
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
-        if (!timer.isRunning()) {
-            timer.start();
+        if (timerThread == null || !timerThread.isAlive()) {
+            timerThread = new TimerThread();
+            timerThread.start();
         }
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
-        if (timer.isRunning()) {
-            timer.stop();
+        if (timerThread != null && timerThread.isAlive()) {
+            timerThread.interrupt();
+            timerThread = null;
         }
     }//GEN-LAST:event_btnStopActionPerformed
 
+    private class TimerThread extends Thread {
+        @Override
+        public void run(){
+            while (!Thread.currentThread().isInterrupted()){
+                try {
+                    SwingUtilities.invokeLater(new Runnable(){
+                    @Override
+                    public void run(){
+                        timeInSeconds++;
+                        tfTimeInSeconds.setText(Integer.toString(timeInSeconds));
+                    }
+                });
+                    Thread.sleep(1000);
+                } catch (InterruptedException e){
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
